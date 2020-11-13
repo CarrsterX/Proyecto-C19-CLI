@@ -1,17 +1,11 @@
 import subprocess
 import os
 
-aux = os.getcwd()
-
-print("Se encuentra en el directorio: "+aux)
-
-if os.path.isdir(aux+'/BaseDatos'):
-    os.chdir(aux+'/BaseDatos')
-else:
-    os.mkdir(aux+'/BaseDatos')
-    os.chdir(aux+'/BaseDatos')
-
 def instalador():
+    
+    aux = os.getcwd()
+
+    print("\nSe encuentra en el directorio: "+aux)
     
     aux2 = subprocess.call('apt list --installed | grep subversion',shell=True)
 
