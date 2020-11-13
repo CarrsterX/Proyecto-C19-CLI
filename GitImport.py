@@ -30,6 +30,6 @@ def instalador():
             instalador()
     
     print("Importando Datos")
-    subprocess.call("svn export --force https://github.com/MinCiencia/Datos-COVID19/branches/master/output/producto1", shell=True)
+    subprocess.call("svn export --force https://github.com/MinCiencia/Datos-COVID19/branches/master/output/producto46/activos_vs_recuperados.csv", shell=True)
 
 instalador()
