@@ -1,4 +1,5 @@
 # Proyecto-MICB
 Proyecto para proyeccion de SARS-CoV-2 en Chile\
-Programa compatible con Debian y derivadas\
+Programa compatible con GNU/Linux Debian y derivadas\
+Se requiere Python3\
 Compatible en Windows con WSL
