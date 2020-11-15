@@ -15,7 +15,30 @@ def lector_data():
     data = pd.read_csv('TotalesNacionales_T.csv',header=0) 
     return data
 
+def porcentual(data):
+
+    lista_porcentajes= []
+    for i in (range(len(data['Casos nuevos totales'])-1)):
+        
+        actual= data['Casos nuevos totales'][i+1]
+        anterior= data['Casos nuevos totales'][i]
+
+        if anterior == 0:
+            lista_porcentajes.append(((anterior-actual)/actual)*-1)
+
+        else:
+            porcentual= ((actual-anterior)/anterior)
+
+            lista_porcentajes.append(round(porcentual,4))
+            
+    variaciones= {'porcentajes': lista_porcentajes}
+    return variaciones
+
+
 if __name__ == '__main__':
     data = lector_data()
 
-    print(data['Casos totales'])
+    variaciones= porcentual(data)
+    print(variaciones)
+    
+    
