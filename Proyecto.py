@@ -45,7 +45,7 @@ def porcentual(data):
 
 def calculot(variaciones, data1):
     
-    print("A cuantos dias a futuro desea realizar el calculo: ", end="")
+    print("A cuantos dias a futuro desea realizar el calculo? (͠≖ ͜ʖ͠≖)👌: ", end="")
     d=input()
     d=int(d)
 
