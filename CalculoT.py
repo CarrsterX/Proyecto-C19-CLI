@@ -29,7 +29,6 @@ def calculot(variaciones):
     
     data1=pd.read_csv('datosc19.csv',header=0)
     aux0=data1[["Casos totales"]]
-    aux0 = aux0.fillna(0)
     new_data = []
     res = []
     k=0
