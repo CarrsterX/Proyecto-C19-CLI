@@ -90,5 +90,4 @@ if __name__ == '__main__':
     data = lector_data()
     variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
     finald=calculot(variaciones, data)
-    #print(finald)
     print("✨(っ◔︣◡◔᷅)っc(◕︣◡◕᷅c)✨")
