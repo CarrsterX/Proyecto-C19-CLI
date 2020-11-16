@@ -2,6 +2,7 @@ from GitImport import instalador # importe de la funcion que obtiene la base de 
 from Copia_CSV import copia_csv # importe de la funcion que repara los datos 
 import pandas as pd
 import subprocess
+import csv
 
 def existe_data_inicial():
     aux0=subprocess.call('find TotalesNacionales_T.csv',shell=True)
@@ -42,46 +43,52 @@ def porcentual(data):
     variaciones= {'porcentajes': lista_porcentajes}
     return variaciones
 
-def calculot(variaciones):
+def calculot(variaciones, data1):
     
     print("A cuantos dias a futuro desea realizar el calculo: ", end="")
     d=input()
     d=int(d)
-    
-    data1=pd.read_csv('datosc19.csv',header=0)
-    aux0=data1[["Casos totales"]]
+
+    aux0 = data1[["Casos totales"]]
     new_data = []
-    res = []
-    k=0
-    diccionario0={}
     
-    for i in (range(len(aux0["Casos totales"]))):
-        diccionario = {}
-        aux1=aux0["Casos totales"][i]
+    
+    aux1=aux0["Casos totales"][len(aux0["Casos totales"])-1]
         
     for j in (range(len(variaciones["porcentajes"]))):
         aux3=variaciones["porcentajes"][j]
         new_data.append(aux3)
     
     res=[]
-    
-    while k < d:
-        suma=sum(new_data)
-        prom=suma/len(new_data)
-        new_data.append(prom)
-        aux1=int(aux1+(aux1*prom))
-        res.append(aux1)
-        k=k+1 
-    d=str(d)
-    diccionario0={"Casos a "+d+" dias a futuro":res}
+    k=0
 
-    return diccionario0
+    aux2 = len(aux0["Casos totales"]) - 20
+    while aux2 < len(aux0["Casos totales"]):
+        diccionario0={}
+        dato = aux0["Casos totales"][aux2]
+        diccionario0["Casos a "+str(d)+" dias a futuro"] = dato
+        res.append(diccionario0)
+        aux2 = aux2 + 1 
+
+    suma=sum(new_data)
+    prom=suma/len(new_data)
+    while k < d:
+        diccionario0={}
+        aux1=int(aux1+(aux1*prom))
+        diccionario0["Casos a "+str(d)+" dias a futuro"] = aux1
+        res.append(diccionario0)
+        k=k+1 
+
+    with open('proyeccionesc19.csv', 'w') as f:
+        w = csv.DictWriter(f, res[0].keys())
+        w.writeheader()
+        for diccionario0 in res:
+            w.writerow(diccionario0)
+    return res
 
 if __name__ == '__main__':
     data = lector_data()
     variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
-    finald=calculot(variaciones)
-    print(finald)
-    #ahora resta aplicar los porcentajes de las variaciones en los datos de 'casos totales'
-    
-    
+    finald=calculot(variaciones, data)
+    #print(finald)
+    print("✨(っ◔︣◡◔᷅)っc(◕︣◡◕᷅c)✨")
