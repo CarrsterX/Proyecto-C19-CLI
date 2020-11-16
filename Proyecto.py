@@ -1,5 +1,6 @@
 from GitImport import instalador # importe de la funcion que obtiene la base de datos actualizada
 from Copia_CSV import copia_csv # importe de la funcion que repara los datos 
+from CalculoT import porcentual, calculot # importe de la funcion que calcula a futuro los porcentajes y datos totales
 import pandas as pd
 import subprocess
 
@@ -21,33 +22,12 @@ def lector_data():
     data = pd.read_csv('datosc19.csv',header=0) 
     return data
 
-def porcentual(data):
-
-    lista_porcentajes= []
-    temp = (len(data['Casos nuevos totales'])-1)
-    i = temp - 20 # el numero son la cantidad de dias antes 
-    while i < temp:
-        
-        actual= data['Casos nuevos totales'][i+1]
-        anterior= data['Casos nuevos totales'][i]
-
-        if anterior == 0:
-            lista_porcentajes.append(((anterior-actual)/actual)*-1)
-
-        else:
-            porcentual= ((actual-anterior)/anterior)
-
-            lista_porcentajes.append(round(porcentual,4))
-        i = i+1
-    variaciones= {'porcentajes': lista_porcentajes}
-    return variaciones
-
-
 if __name__ == '__main__':
     data = lector_data()
     variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
     print(variaciones)
-    
+    finald=calculot(variaciones)
+    print(finald)
     #ahora resta aplicar los porcentajes de las variaciones en los datos de 'casos totales'
     
     
