@@ -24,13 +24,16 @@ def lector_data():
 
 def porcentual(data):
 
+    #columna = "Casos nuevos totales";
+    columna = "Casos totales";
+
     lista_porcentajes= []
-    temp = (len(data['Casos nuevos totales'])-1)
+    temp = (len(data[columna])-1)
     i = temp - 20 # el numero son la cantidad de dias antes 
     while i < temp:
         
-        actual= data['Casos nuevos totales'][i+1]
-        anterior= data['Casos nuevos totales'][i]
+        actual= data[columna][i+1]
+        anterior= data[columna][i]
 
         if anterior == 0:
             lista_porcentajes.append(((anterior-actual)/actual)*-1)
@@ -45,15 +48,18 @@ def porcentual(data):
 
 def calculot(variaciones, data1):
     
+    #columna = "Casos nuevos totales";
+    columna = "Casos totales";
+
     print("A cuantos dias a futuro desea realizar el calculo? (͠≖ ͜ʖ͠≖)👌: ", end="")
     d=input()
     d=int(d)
 
-    aux0 = data1[["Casos totales"]]
+    aux0 = data1[[columna]]
     new_data = []
     
     
-    aux1=aux0["Casos totales"][len(aux0["Casos totales"])-1]
+    aux1=aux0[columna][len(aux0[columna])-1]
         
     for j in (range(len(variaciones["porcentajes"]))):
         aux3=variaciones["porcentajes"][j]
@@ -62,10 +68,10 @@ def calculot(variaciones, data1):
     res=[]
     k=0
 
-    aux2 = len(aux0["Casos totales"]) - 20
-    while aux2 < len(aux0["Casos totales"]):
+    aux2 = len(aux0[columna]) - 20
+    while aux2 < len(aux0[columna]):
         diccionario0={}
-        dato = aux0["Casos totales"][aux2]
+        dato = aux0[columna][aux2]
         diccionario0["Casos a "+str(d)+" dias a futuro"] = dato
         res.append(diccionario0)
         aux2 = aux2 + 1 
@@ -90,4 +96,5 @@ if __name__ == '__main__':
     data = lector_data()
     variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
     finald=calculot(variaciones, data)
+    #print(finald)
     print("✨(っ◔︣◡◔᷅)っc(◕︣◡◕᷅c)✨")
