@@ -8,7 +8,7 @@ def copia_csv():
     aux0=data[["Casos totales","Casos recuperados","Casos activos","Casos nuevos totales"]]
     aux0 = aux0.fillna(0)
     new_data = []
-    for i in (range(len(aux0["Casos totales"]))):#FOR HECHO POR EL RICO Y ESTUPENDO Y ZUKULEMTHO CLAUDIO CARRASCO FUENTE ALBA ALIAS ARJONA
+    for i in (range(len(aux0["Casos totales"]))):
         diccionario = {}
         
         aux1=aux0["Casos totales"][i]
