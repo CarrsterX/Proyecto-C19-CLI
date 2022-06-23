@@ -30,7 +30,7 @@ def instalador():
     print(file)
 
     print("Importando Datos")
-    subprocess.call("svn export --force https://github.com/MinCiencia/Datos-COVID19/branches/master/output/producto4/"+file, shell=True)
+    subprocess.call("sudo svn export --force https://github.com/MinCiencia/Datos-COVID19/branches/master/output/producto4/"+file, shell=True)
     return file
 
 #instalador()
