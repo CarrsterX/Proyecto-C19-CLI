@@ -1,27 +1,28 @@
-from GitImport import instalador # importe de la funcion que obtiene la base de datos actualizada
-from Copia_CSV import copia_csv # importe de la funcion que repara los datos 
+from GitImportR7 import instalador # importe de la funcion que obtiene la base de datos actualizada
+from Copia_CSVR7 import copia_csv # importe de la funcion que repara los datos 
 import pandas as pd
+import seirsplus 
 import subprocess
 import csv
 
-def existe_data_inicial():
-    aux0=subprocess.call('find TotalesNacionales_T.csv',shell=True)
+def existe_data_inicial(file):
+    aux0=subprocess.call('find '+file,shell=True)
     return aux0
 
 def existe_data_reparada():
-    aux0=subprocess.call('find datosc19.csv',shell=True)
-    return aux0
+    aux1=subprocess.call('find datosc19.csv',shell=True)
+    return aux1
 
 def lector_data():
-    aux0=existe_data_inicial()
+    file=instalador()
+    aux0=existe_data_inicial(file)
+    
+    copia_csv(file)
+
     aux1=existe_data_reparada()
-    if aux1 == 1:
-        if aux0 == 1:
-            instalador()
-        copia_csv()
     data = pd.read_csv('datosc19.csv',header=0) 
     return data
-
+'''
 def porcentual(data):
 
     #columna = "Casos nuevos totales";
@@ -91,10 +92,11 @@ def calculot(variaciones, data1):
         for diccionario0 in res:
             w.writerow(diccionario0)
     return res
+'''
 
 if __name__ == '__main__':
     data = lector_data()
-    variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
-    finald=calculot(variaciones, data)
+    #variaciones= porcentual(data)# formula = (actual - anterior)/anterior //// en caso de que anterior sea 0 ((anterior - actual)/actual)*-1
+    #finald=calculot(variaciones, data)
     #print(finald)
     print("✨(っ◔︣◡◔᷅)っc(◕︣◡◕᷅c)✨")
